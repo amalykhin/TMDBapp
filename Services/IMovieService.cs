@@ -9,8 +9,8 @@ namespace TMDBapp.Services
 {
     public interface IMovieService
     {
-        IEnumerable<Movie> GetMostPopular(int? page);
-        IEnumerable<Movie> GetTopRated(int? page);
+        PaginatedResponse<Movie> GetMostPopular(int? page);
+        PaginatedResponse<Movie> GetTopRated(int? page);
         IDictionary<string, IEnumerable<Movie>> GetByGenre();
         MovieDetails GetDetails(int movieId);
     }

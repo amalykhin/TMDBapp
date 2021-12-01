@@ -1,14 +1,27 @@
-﻿@model IEnumerable<TMDBapp.Models.Movie>
+﻿@model PaginatedResponse<TMDBapp.Models.Movie>
 
 @{
     ViewData["Title"] = "Most Popular Movies";
     var baseUri = "https://image.tmdb.org/t/p/w200";
+    var movies = Model.Results;
+    var page = Model.Page;
+    var totalPages = Model.TotalPages;
+    var prevPage = Math.Max(page - 1, 1);
+    var nextPage = Math.Min(page + 1, totalPages);
 }
+
+<style>
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
 
 <h1>Most Popular Movies</h1>
 
 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px">
-    @foreach (var movie in Model)
+    @foreach (var movie in Model.Results)
     {
         <div class="card">
             <img class="card-img-top" src="@(baseUri + movie.PosterPath)" alt="Card image cap">
@@ -19,3 +32,15 @@
         </div>
     }
 </div>
+<nav>
+    <ul class="pagination" style="justify-content: center; margin-top: 20px">
+        <li class="page-item @(page == 1 ? "disabled" : "")" ><a class="page-link" href="/Home/MostPopular?page=1">&lt;&lt;</a></li>
+        <li class="page-item @(page == 1 ? "disabled" : "")"><a class="page-link" href="/Home/MostPopular?page=@prevPage"><</a></li>
+        @for (int i = Math.Max(page - 2, 1); i <= Math.Min(page + 2, totalPages); i++)
+        {
+            <li class="page-item @(i == page ? "active" : "")"><a class="page-link" href="/Home/MostPopular?page=@i">@i</a></li>
+        }
+        <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="/Home/MostPopular?page=@nextPage">&gt;</a></li>
+        <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="/Home/MostPopular?page=@totalPages">&gt;&gt;</a></li>
+    </ul>
+</nav>

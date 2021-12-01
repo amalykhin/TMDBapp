@@ -23,10 +23,10 @@ namespace TMDBapp.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Movie> GetMostPopular(int? page)
-            =>  api.GetMostPopular(page).Result.Results;
+        public PaginatedResponse<Movie> GetMostPopular(int? page)
+            =>  api.GetMostPopular(page).Result;
 
-        public IEnumerable<Movie> GetTopRated(int? page)
-            => api.GetTopRated(page).Result.Results;
+        public PaginatedResponse<Movie> GetTopRated(int? page)
+            => api.GetTopRated(page).Result;
     }
 }
