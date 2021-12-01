@@ -43,6 +43,12 @@ namespace TMDBapp.Controllers
             return View(movies);
         }
 
+        public IActionResult Details(int movieId)
+        {
+            var movie = movieService.GetDetails(movieId);
+            return View(movie);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -19,12 +19,10 @@ namespace TMDBapp.Services
         }
 
         public MovieDetails GetDetails(int movieId)
-        {
-            throw new NotImplementedException();
-        }
+            => api.GetDetails(movieId).Result;
 
         public PaginatedResponse<Movie> GetMostPopular(int? page)
-            =>  api.GetMostPopular(page).Result;
+            => api.GetMostPopular(page).Result;
 
         public PaginatedResponse<Movie> GetTopRated(int? page)
             => api.GetTopRated(page).Result;

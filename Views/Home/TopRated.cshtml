@@ -18,6 +18,10 @@
 }
 
 <style>
+    .card {
+        cursor: pointer;
+    }
+
     .card-body {
         display: flex;
         flex-direction: column;
@@ -34,7 +38,7 @@
 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px">
     @foreach (var movie in Model.Results)
     {
-        <div class="card">
+        <div class="card" data-movie-id="@movie.Id">
             <img class="card-img-top" src="@(baseUri + movie.PosterPath)" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@(movie.Title)</h5>
@@ -56,3 +60,15 @@
         <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="@GetUri(@totalPages)">&gt;&gt;</a></li>
     </ul>
 </nav>
+
+<script>
+    $(() => {
+        $(".card").on("click", (event) => {
+            if ($(event.target).hasClass("btn")) {
+                return;
+            }
+            let movieId = $(event.currentTarget).data("movieId");
+            window.location = "/Home/Details?movieId=" + movieId;
+        });
+    });
+</script>
