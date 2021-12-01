@@ -23,6 +23,10 @@
         flex-direction: column;
         justify-content: space-between;
     }
+
+    .card-title {
+        height: 70px;
+    }
 </style>
 
 <h1>Top Rated Movies</h1>
@@ -34,6 +38,7 @@
             <img class="card-img-top" src="@(baseUri + movie.PosterPath)" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@(movie.Title)</h5>
+                <p class="card-text">Rating: @movie.Rating</p>
                 <a href="#" class="btn btn-primary">+ Favourite</a>
             </div>
         </div>

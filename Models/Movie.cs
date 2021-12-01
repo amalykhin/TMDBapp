@@ -12,6 +12,7 @@ namespace TMDBapp.Models
         public string Title { get; set; }
         [JsonPropertyName("vote_average")]
         public double Rating { get; set; }
+        public double Popularity { get; set; }
         [JsonPropertyName("poster_path")]
         public string PosterPath { get; set; }
     }
