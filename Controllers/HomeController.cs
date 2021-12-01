@@ -36,6 +36,12 @@ namespace TMDBapp.Controllers
             var movies = movieService.GetMostPopular(page);
             return View(movies);
         }
+        
+        public IActionResult TopRated(int page = 1)
+        {
+            var movies = movieService.GetTopRated(page);
+            return View(movies);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

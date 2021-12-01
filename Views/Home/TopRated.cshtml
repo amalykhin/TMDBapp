@@ -1,6 +1,6 @@
 ﻿@model PaginatedResponse<TMDBapp.Models.Movie>
 @{
-    ViewData["Title"] = "Most Popular Movies";
+    ViewData["Title"] = "Top Rated Movies";
     var baseUri = "https://image.tmdb.org/t/p/w200";
 
     var movies = Model.Results;
@@ -13,7 +13,7 @@
 @functions {
     string GetUri(int page = 1)
     {
-        return "/Home/MostPopular?page=" + page;
+        return "/Home/TopRated?page=" + page;
     }
 }
 
@@ -25,7 +25,7 @@
     }
 </style>
 
-<h1>Most Popular Movies</h1>
+<h1>Top Rated Movies</h1>
 
 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px">
     @foreach (var movie in Model.Results)
