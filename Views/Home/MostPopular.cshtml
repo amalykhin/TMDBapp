@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TMDBapp.Models.Movie>
+
+@{
+    ViewData["Title"] = "Most Popular Movies";
+    var baseUri = "https://image.tmdb.org/t/p/w200";
+}
+
+<h1>Most Popular Movies</h1>
+
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px">
+    @foreach (var movie in Model)
+    {
+        <div class="card">
+            <img class="card-img-top" src="@(baseUri + movie.PosterPath)" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@(movie.Title)</h5>
+                <a href="#" class="btn btn-primary">+ Favourite</a>
+            </div>
+        </div>
+    }
+</div>
