@@ -24,40 +24,40 @@ namespace TMDBapp.Services
         public void AddFavourite(int movieId, string userId) 
             => favRepo.AddFavourite(movieId, userId);
 
-        public PaginatedResponse<Movie> GetByGenre(string userId, int genreId, int page, string sortDirection = "desc")
+        public async Task<PaginatedResponse<Movie>> GetByGenre(string userId, int genreId, int page, string sortDirection = "desc")
         {
-            var response = api.GetByGenre(apiKey, sortDirection, genreId, page).Result;
+            var response = await api.GetByGenre(apiKey, sortDirection, genreId, page);
             response.SortDirection = sortDirection;
             return PopulateFavourites(userId, response);
         }
 
-        public MovieDetails GetDetails(int movieId)
-            => api.GetDetails(apiKey, movieId).Result;
+        public async Task<MovieDetails> GetDetails(int movieId)
+            => await api.GetDetails(apiKey, movieId);
 
-        public IEnumerable<Genre> GetGenres()
-            => api.GetGenres(apiKey).Result.Genres;
+        public async Task<IEnumerable<Genre>> GetGenres()
+            => (await api.GetGenres(apiKey)).Genres;
 
-        public PaginatedResponse<Movie> GetMostPopular(string userId, int? page)
+        public async Task<PaginatedResponse<Movie>> GetMostPopular(string userId, int? page)
         {
-            var response = api.GetMostPopular(apiKey, page).Result;
+            var response = await api.GetMostPopular(apiKey, page);
             return PopulateFavourites(userId, response);
         }
 
-        public PaginatedResponse<Movie> GetTopRated(string userId, int page = 1, string sortDirection = "desc", int? totalPages = null)
+        public async Task<PaginatedResponse<Movie>> GetTopRated(string userId, int page = 1, string sortDirection = "desc", int? totalPages = null)
         {
             PaginatedResponse<Movie> response = null;
             if (sortDirection.Equals("asc"))
             {
                 if (totalPages is null)
                 {
-                    response = api.GetTopRated(apiKey, page).Result;
+                    response = await api.GetTopRated(apiKey, page);
                     totalPages = response.TotalPages;
                 }
-                response = api.GetTopRated(apiKey, totalPages + 1 - page).Result;
+                response = await api.GetTopRated(apiKey, totalPages + 1 - page);
                 response.Page = page;
             } else
             {
-                response = api.GetTopRated(apiKey, page).Result;
+                response = await api.GetTopRated(apiKey, page);
             }
             response.SortDirection = sortDirection;
             return PopulateFavourites(userId, response);
