@@ -39,10 +39,10 @@ namespace TMDBapp.Controllers
             return View(movies);
         }
         
-        public IActionResult TopRated(int page = 1)
+        public IActionResult TopRated(int page = 1, string sortDirection = "desc", int? totalPages = null)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var movies = movieService.GetTopRated(userId, page);
+            var movies = movieService.GetTopRated(userId, page, sortDirection, totalPages);
             return View(movies);
         }
 
@@ -58,10 +58,10 @@ namespace TMDBapp.Controllers
             return View(genres);
         }
 
-        public IActionResult ByGenre(int genreId, string genreName, int page = 1)
+        public IActionResult ByGenre(int genreId, string genreName, int page = 1, string sortDirection = "desc")
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var movies = movieService.GetByGenre(userId, genreId, page);
+            var movies = movieService.GetByGenre(userId, genreId, page, sortDirection);
             return View(new ByGenreViewModel
             {
                 Id = genreId,

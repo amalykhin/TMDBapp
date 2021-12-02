@@ -19,9 +19,10 @@ namespace TMDBapp.Services
         public void AddFavourite(int movieId, string userId) 
             => favRepo.AddFavourite(movieId, userId);
 
-        public PaginatedResponse<Movie> GetByGenre(string userId, int genreId, int page)
+        public PaginatedResponse<Movie> GetByGenre(string userId, int genreId, int page, string sortDirection = "desc")
         {
-            var response = api.GetByGenre(genreId, page).Result;
+            var response = api.GetByGenre(sortDirection, genreId, page).Result;
+            response.SortDirection = sortDirection;
             return PopulateFavourites(userId, response);
         }
 
@@ -37,9 +38,23 @@ namespace TMDBapp.Services
             return PopulateFavourites(userId, response);
         }
 
-        public PaginatedResponse<Movie> GetTopRated(string userId, int? page)
+        public PaginatedResponse<Movie> GetTopRated(string userId, int page = 1, string sortDirection = "desc", int? totalPages = null)
         {
-            var response = api.GetTopRated(page).Result;
+            PaginatedResponse<Movie> response = null;
+            if (sortDirection.Equals("asc"))
+            {
+                if (totalPages is null)
+                {
+                    response = api.GetTopRated(page).Result;
+                    totalPages = response.TotalPages;
+                }
+                response = api.GetTopRated(totalPages + 1 - page).Result;
+                response.Page = page;
+            } else
+            {
+                response = api.GetTopRated(page).Result;
+            }
+            response.SortDirection = sortDirection;
             return PopulateFavourites(userId, response);
         }
 

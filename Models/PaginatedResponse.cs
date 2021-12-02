@@ -14,5 +14,6 @@ namespace TMDBapp.Models
         public int TotalResults { get; set; }
         [JsonPropertyName("total_pages")]
         public int TotalPages { get; set; }
+        public string SortDirection { get; set; }
     }
 }

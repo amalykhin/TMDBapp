@@ -19,7 +19,7 @@ namespace TMDBapp.Services
         Task<GenreResponse> GetGenres();
         
         [Get("/discover/movie?api_key=dad8a59d86a2793dda93aa485f7339c1&with_genres={genreId}&page={page}")]
-        Task<PaginatedResponse<Movie>> GetByGenre(int genreId, int page);
+        Task<PaginatedResponse<Movie>> GetByGenre(string sortDirection, int genreId, int page);
 
         [Get("/movie/{id}?api_key=dad8a59d86a2793dda93aa485f7339c1")]
         Task<MovieDetails> GetDetails(int id);
