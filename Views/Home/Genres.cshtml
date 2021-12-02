@@ -29,6 +29,6 @@
 <div class="genre-container">
     @foreach (var genre in Model.Take(5))
     {
-        <a class="genre-card" href="/Home/ByGenre?genreId=@genre.Id">@genre.Name</a>
+        <a class="genre-card" href="/Home/ByGenre?genreId=@genre.Id&genreName=@genre.Name">@genre.Name</a>
     }
 </div>

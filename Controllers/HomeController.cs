@@ -55,6 +55,17 @@ namespace TMDBapp.Controllers
             return View(genres);
         }
 
+        public IActionResult ByGenre(int genreId, string genreName, int page = 1)
+        {
+            var movies = movieService.GetByGenre(genreId, page);
+            return View(new ByGenreViewModel
+            {
+                Id = genreId,
+                Name = genreName,
+                Movies = movies,
+            });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

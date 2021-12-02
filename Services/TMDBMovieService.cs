@@ -13,8 +13,8 @@ namespace TMDBapp.Services
         public TMDBMovieService(ITMDBApiService api) 
             => this.api = api;
 
-        public PaginatedResponse<Movie> GetByGenre(string genre)
-            => api.GetByGenre(genre).Result;
+        public PaginatedResponse<Movie> GetByGenre(int genreId, int page)
+            => api.GetByGenre(genreId, page).Result;
 
         public MovieDetails GetDetails(int movieId)
             => api.GetDetails(movieId).Result;

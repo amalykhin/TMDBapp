@@ -1,0 +1,75 @@
+﻿@model TMDBapp.Models.ByGenreViewModel
+
+@{ 
+    var title = "Genre: " + Model.Name;
+    ViewData["Title"] = title;
+    var baseUri = "https://image.tmdb.org/t/p/w200";
+
+    var movies = Model.Movies.Results;
+    var page = Model.Movies.Page;
+    var totalPages = Model.Movies.TotalPages;
+    var prevPage = Math.Max(page - 1, 1);
+    var nextPage = Math.Min(page + 1, totalPages);
+}
+
+@functions {
+    string GetUri(int page = 1)
+    {
+        return $"/Home/ByGenre?genreId={Model.Id}&genreName={Model.Name}&page=" + page;
+    }
+}
+
+<style>
+    .card {
+        cursor: pointer;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        height: 70px;
+    }
+</style>
+
+<h1>@title</h1>
+
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px">
+    @foreach (var movie in movies)
+    {
+        <div class="card" data-movie-id="@movie.Id">
+            <img class="card-img-top" src="@(baseUri + movie.PosterPath)" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@(movie.Title)</h5>
+                <a href="#" class="btn btn-primary">+ Favourite</a>
+            </div>
+        </div>
+    }
+</div>
+<nav>
+    <ul class="pagination" style="justify-content: center; margin-top: 20px">
+        <li class="page-item @(page == 1 ? "disabled" : "")"><a class="page-link" href="@GetUri()">&lt;&lt;</a></li>
+        <li class="page-item @(page == 1 ? "disabled" : "")"><a class="page-link" href="@GetUri(prevPage)"><</a></li>
+        @for (int i = Math.Max(page - 2, 1); i <= Math.Min(page + 2, totalPages); i++)
+        {
+            <li class="page-item @(i == page ? "active" : "")"><a class="page-link" href="@GetUri(i)">@i</a></li>
+        }
+        <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="@GetUri(nextPage)">&gt;</a></li>
+        <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="@GetUri(@totalPages)">&gt;&gt;</a></li>
+    </ul>
+</nav>
+
+<script>
+    $(() => {
+        $(".card").on("click", (event) => {
+            if ($(event.target).hasClass("btn")) {
+                return;
+            }
+            let movieId = $(event.currentTarget).data("movieId");
+            window.location = "/Home/Details?movieId=" + movieId;
+        });
+    });
+</script>
