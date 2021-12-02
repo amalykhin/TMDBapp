@@ -43,7 +43,7 @@
             <div class="card-body">
                 <h5 class="card-title">@(movie.Title)</h5>
                 <p class="card-text">Popularity: @movie.Popularity</p>
-                <a href="#" class="btn btn-primary">+ Favourite</a>
+                <button data-movie-id="@movie.Id" class="btn @(movie.IsFavourite ? "btn-danger favourite" : "btn-primary ") js-fav-btn">@(movie.IsFavourite ? "-" : "+") Favourite</button>
             </div>
         </div>
     }
@@ -60,15 +60,3 @@
         <li class="page-item @(page == totalPages ? "disabled" : "")"><a class="page-link" href="@GetUri(@totalPages)">&gt;&gt;</a></li>
     </ul>
 </nav>
-
-<script>
-    $(() => {
-        $(".card").on("click", (event) => {
-            if ($(event.target).hasClass("btn")) {
-                return;
-            }
-            let movieId = $(event.currentTarget).data("movieId");
-            window.location = "/Home/Details?movieId=" + movieId;
-        });
-    });
-</script>

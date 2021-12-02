@@ -50,6 +50,35 @@
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(() => {
+            $(".card").on("click", (event) => {
+                if ($(event.target).hasClass("btn")) {
+                    return;
+                }
+                let movieId = $(event.currentTarget).data("movieId");
+                window.location = "/Home/Details?movieId=" + movieId;
+            });
+
+            $(".js-fav-btn").on("click", (event) => {
+                $target = $(event.currentTarget);
+                let movieId = $target.data("movieId");
+                let isFavourite = $target.hasClass("favourite");
+                $.get(`/Home/${isFavourite ? 'Remove' : 'Add'}Favourite`, { movieId }, () => {
+                    isFavourite != isFavourite;
+                    if (!isFavourite) {
+                        $target.removeClass("btn-primary");
+                        $target.addClass("btn-danger").addClass("favourite");
+                        $target.text("- Favourite");
+                    } else {
+                        $target.removeClass("btn-danger").removeClass("favourite");
+                        $target.addClass("btn-primary");
+                        $target.text("+ Favourite");
+                    }
+                });
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

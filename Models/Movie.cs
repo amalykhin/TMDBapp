@@ -15,5 +15,6 @@ namespace TMDBapp.Models
         public double Popularity { get; set; }
         [JsonPropertyName("poster_path")]
         public string PosterPath { get; set; }
+        public bool IsFavourite { get; set; }
     }
 }

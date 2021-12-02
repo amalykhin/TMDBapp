@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMDBapp.Data;
+using TMDBapp.Repositories;
 using TMDBapp.Services;
 
 namespace TMDBapp
@@ -45,6 +46,7 @@ namespace TMDBapp
                 });
 
             services.AddTransient<IMovieService, TMDBMovieService>();
+            services.AddTransient<IFavouritesRepository, SqlFavouritesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
