@@ -11,7 +11,8 @@ namespace TMDBapp.Services
     {
         PaginatedResponse<Movie> GetMostPopular(int? page);
         PaginatedResponse<Movie> GetTopRated(int? page);
-        IDictionary<string, IEnumerable<Movie>> GetByGenre();
+        IEnumerable<Genre> GetGenres();
+        PaginatedResponse<Movie> GetByGenre(string genre);
         MovieDetails GetDetails(int movieId);
     }
 }

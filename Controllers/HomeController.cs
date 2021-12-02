@@ -49,6 +49,12 @@ namespace TMDBapp.Controllers
             return View(movie);
         }
 
+        public IActionResult Genres()
+        {
+            var genres = movieService.GetGenres();
+            return View(genres);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

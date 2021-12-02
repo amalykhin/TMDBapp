@@ -13,13 +13,14 @@ namespace TMDBapp.Services
         public TMDBMovieService(ITMDBApiService api) 
             => this.api = api;
 
-        public IDictionary<string, IEnumerable<Movie>> GetByGenre()
-        {
-            throw new NotImplementedException();
-        }
+        public PaginatedResponse<Movie> GetByGenre(string genre)
+            => api.GetByGenre(genre).Result;
 
         public MovieDetails GetDetails(int movieId)
             => api.GetDetails(movieId).Result;
+
+        public IEnumerable<Genre> GetGenres()
+            => api.GetGenres().Result.Genres;
 
         public PaginatedResponse<Movie> GetMostPopular(int? page)
             => api.GetMostPopular(page).Result;
