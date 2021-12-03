@@ -8,6 +8,7 @@ namespace TMDBapp.Models
 {
     public class MovieDetails
     {
+        public int Id { get; set; }
         public int Budget { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public string Homepage { get; set; }

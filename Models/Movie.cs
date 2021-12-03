@@ -16,5 +16,6 @@ namespace TMDBapp.Models
         [JsonPropertyName("poster_path")]
         public string PosterPath { get; set; }
         public bool IsFavourite { get; set; }
+        public IEnumerable<Genre> Genres { get; set; }
     }
 }
